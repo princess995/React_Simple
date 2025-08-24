@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
     return (
         <header>
-            <h1>My Experience & Skillsets</h1>
+            {/* <h1>My Experience & Skillsets</h1> */}
         </header>
     );
 };

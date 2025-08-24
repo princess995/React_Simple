@@ -16,7 +16,10 @@ function appReducer(state, action) {
     case "LOGIN":
       return { ...state, user: action.payload };
     case "LOGOUT":
-      return { ...state, user: null };
+      // 로그아웃 시 localStorage에서도 사용자 정보 제거
+      const newState = { ...state, user: null };
+      localStorage.setItem("appState", JSON.stringify(newState));
+      return newState;
 
     case "ADD_EXPERIENCE":
       return { ...state, experiences: [...state.experiences, action.payload] };
