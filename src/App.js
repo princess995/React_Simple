@@ -7,6 +7,9 @@ import HomePage from "./routes/HomePage";
 import RegisterUser from "./routes/RegisterUser";
 import ProfilePage from "./routes/ProfilePage";
 import ProfileDetailPage from "./routes/ProfileDetailPage";
+import TalentsPage from "./routes/TalentsPage";
+
+
 
 // 보호된 라우트 컴포넌트
 function ProtectedRoute({ children }) {
@@ -76,6 +79,14 @@ function App() {
               <ProfileDetailPage />
             </ProtectedRoute>
           } 
+        />
+        <Route
+          path="/talents"
+          element={
+            <ProtectedRoute>
+              <TalentsPage />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </Router>
