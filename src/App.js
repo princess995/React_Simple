@@ -8,6 +8,7 @@ import RegisterUser from "./routes/RegisterUser";
 import ProfilePage from "./routes/ProfilePage";
 import ProfileDetailPage from "./routes/ProfileDetailPage";
 import TalentsPage from "./routes/TalentsPage";
+import FavoritesPage from "./routes/FavoritesPage";
 
 
 
@@ -85,6 +86,14 @@ function App() {
           element={
             <ProtectedRoute>
               <TalentsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute>
+              <FavoritesPage />
             </ProtectedRoute>
           }
         />

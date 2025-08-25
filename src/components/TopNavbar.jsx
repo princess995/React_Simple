@@ -141,7 +141,7 @@ const TopNavbar = () => {
                     {/* 즐겨찾기 메뉴 */}
                     <button
                       onClick={() => {
-                        // TODO: 즐겨찾기 페이지로 이동
+                        navigate('/favorites');
                         setShowDropdown(false);
                       }}
                       className="w-full flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors border-t border-gray-100"
