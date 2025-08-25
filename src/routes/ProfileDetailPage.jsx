@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import TopNavbar from '../components/TopNavbar';
 import { useAppContext } from '../state/AppContext';
@@ -8,9 +8,50 @@ const ProfileDetailPage = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const profile = location.state?.profile;
   const { state } = useAppContext();
   const { toggleFavorite, isFavorite } = useFavorites();
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // 먼저 location.state에서 프로필을 확인
+    if (location.state?.profile) {
+      setProfile(location.state.profile);
+      setLoading(false);
+      return;
+    }
+
+    // location.state에 없으면 localStorage에서 ID로 검색
+    if (id) {
+      const allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+      const foundProfile = allProfiles.find(p => p.id === id || p.id === parseInt(id));
+      
+      if (foundProfile) {
+        setProfile(foundProfile);
+      } else {
+        // allProfiles에 없으면 사용자 프로필 확인
+        const userProfiles = JSON.parse(localStorage.getItem('userProfiles') || '[]');
+        const userProfile = userProfiles.find(p => p.id === id || p.id === parseInt(id));
+        
+        if (userProfile) {
+          setProfile(userProfile);
+        }
+      }
+    }
+    setLoading(false);
+  }, [id, location.state]);
+
+  // 로딩 중
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">프로필을 불러오는 중...</p>
+        </div>
+      </div>
+    );
+  }
 
   // 프로필이 없으면 홈으로 리다이렉트
   if (!profile) {
